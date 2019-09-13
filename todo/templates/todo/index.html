@@ -1,0 +1,53 @@
+<body bgcolor=" #f8a5d3"
+style="color:rgb(0, 47, 255);font-size:30px;font-family: Arial, Helvetica, sans-serif"; >
+<center>
+<h1>Todo List</h1>
+    
+
+    <form action="{% url 'todo:create' %}" method="post"> 
+        {% csrf_token %}
+        <div> 
+        <div>
+            <u><h2>Todo</h2> </u>
+            <div>
+            Your TodoList:  {{ form.body }}
+            </div><div>Your Name:{{form.author}} Created On:{{form.created_on}}</div>
+        </div>
+
+       
+        <div>
+            <div >
+                <button type="submit" name="Add"> Add Todo
+                </button>
+            </div>
+        </div>
+
+    </form>
+    
+    
+    <u>  <h2>Current Todos</h2> </u>
+    <table >
+        <thead>
+            <th>Todos</th>
+        </thead>
+
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                
+                    <td>
+                        <div><p>{{ post.body }}</p>
+                            <p >{{ post.author }} | {{ post.created_on }}</p></div>
+                    </td>
+                    <td>
+                        <form action="{% url 'todo:delete' post.id %}" method="post">
+                            {% csrf_token %}
+                            <button>Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody> 
+    </table> </center>
+</body>    
+
